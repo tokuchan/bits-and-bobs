@@ -1,0 +1,8 @@
+#+TITLE: accelerando
+* Quick Start
+* Introduction
+* Contributing
+** Bug Reports
+** Pull Requests
+* About the Author
+Sean R. Spillane is an avid computer programmer and developer who specializes in C++ development and software for distributed and high-performance systems.
