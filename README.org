@@ -1,8 +1,15 @@
 #+TITLE: accelerando
 * Quick Start
+Using Accelerando in your own projects is a cinch. You merely need to clone this repository to someplace where you can direct your compile to look. E.g.: You could place this project in =~/.local/include=, then add the flag =-I $HOME/.local/include= to your build flags. All libraries in Accelerando are designed to act as much like modules as possible. So, it's enough to =#include <accelerando/foo.hpp>= in your file, then =using namespace accelerando::foo;= to get the symbols.
+
 * Introduction
+Accelerando is a collection of useful utilities and libraries that I've gathered (mostly in my head) over the years. While there isn't too much here now, I plan to add more items as time permits. In general, these libraries are meant to be useful, if more "niche" than something like Boost or Abseil. If I see something from those libraries that I like, I'll generally just use that. If I think there is something I can do to make that library better, I'll put it here.
+
 * Contributing
+Obviously, most of this code was written by me, though I welcome contributions from others. Please read [[./CONTRIBUTING.org][CONTRIBUTING]] for more details. I will not accept pull requests that do not conform to the modular style I outline there.
+
 ** Bug Reports
-** Pull Requests
+Please send bug reports to: 
+
 * About the Author
 Sean R. Spillane is an avid computer programmer and developer who specializes in C++ development and software for distributed and high-performance systems.
