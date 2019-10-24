@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Bzel-related stuff
+bazel-accelerando
+bazel-bin
+bazel-out
+bazel-testlogs
