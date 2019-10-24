@@ -1,4 +1,7 @@
 #+TITLE: accelerando
+#+AUTHOR: Sean R. Spillane
+#+OPTIONS: toc:2
+
 * Quick Start
 Using Accelerando in your own projects is a cinch. You merely need to clone this repository to someplace where you can direct your compile to look. E.g.: You could place this project in =~/.local/include=, then add the flag =-I $HOME/.local/include= to your build flags. All libraries in Accelerando are designed to act as much like modules as possible. So, it's enough to =#include <accelerando/foo.hpp>= in your file, then =using namespace accelerando::foo;= to get the symbols.
 
