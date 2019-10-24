@@ -1,0 +1,68 @@
+#+TITLE: Contributing
+#+AUTHOR: Sean R. Spillane
+#+OPTIONS: toc:2
+
+* How to contribute
+
+* Coding Style
+I write with a coding style that I believe makes it easier to understand and read the code. This style is also designed to enhance the generality and reusability of this code. The style also helps with testing.
+
+My coding style can be described in three main parts: Namespacing, Naming Patterns, and Template Usage.
+
+** Namespacing
+   C++ lacks a decent modules system, for now; but we can simulate one with the
+   careful use of namespaces. Let's pretend that we have a class =Foo=, which we
+   want to place in a module =foo=, as part of a subproject called =bar= within
+   Accelerando. First, we always use the global namespace =::accelerando= to
+   contain /all/ of our code. Since we are in a subproject, next we add that
+   subproject's name, to get =::accelerando::bar=, then our module's name, to
+   get =::accelerando::bar::foo=. Now, we have to determine what kind of code we
+   are writing.
+
+   If we are writing the implementation, we need to add a =details= namespace.
+   If we are declaring contants, we add =constants=. If we are writing tests,
+   =tests=. So, for our =Foo= class, it's full name would be:
+   =::accelerando::bar::foo::details::Foo=.
+
+   Tests for =Foo= should be found in =::accelerando::bar::foo::tests=.
+
+   Ideally, the files should be organized in the same way as the namespaces. So,
+   =::accelerando::bar::foo::details::Foo= might be found in
+   =GITROOT/accelerando/bar/foo/foo.hpp=. Users of =foo.hpp= can just =using
+   namespace ::accelerando::bar::foo;= to get the symbols that =foo.hpp=
+   exports. In this case, that should be the class =Foo=. Such "modules" achieve
+   this simply by =using details::Foo= just after the =details= namespace in the
+   file.
+
+** Naming Patterns
+   In general, I prefer using ~snake_case~ to name variables, functions, and
+   type aliases. Type alias names should end in =_type=. Consult the following
+   table for other suffixes.
+   
+   | Kind                | Suffix |
+   |---------------------+--------|
+   | type                | _type  |
+   | collection          | _s     |
+   | type alias template | _t     |
+   | pointer             | _ptr   |
+   | predicate           | _p     |
+   | function            | _f     |
+   
+   For example, if I have a predicate function that tests something for
+   emptiness, you could equivalently name that function =empty_pf=, =empty_p_f=,
+   or — in the case of a =std= function like empty — =empty=. (In general, I
+   prefer to use unsurprising names, like those from =std= where possible.
+
+** Template Usage
+   An excellent way to ensure that a class is general enough to be both testable
+   and reusable is to factor out types and behaviours to traits and policy
+   classes, which are then selected as template arguments. This way, we can
+   instantiate the traits or policies for testing, independent of the original
+   class. Too, we can substitute mock or fake traits or policy classes into the
+   main class for testing.
+   
+   Sometimes the policy names suggest themselves, and then it makes sense to do
+   so. Other times, no obvious names suggest themselves. In that case, I like to
+   use four standard names for the policies: =FooCreatePolicy=, =FooReadPolicy=,
+   =FooUpdatePolicy=, and =FooDeletePolicy=. Obviously, one or more of these
+   policies may not even be needed.
