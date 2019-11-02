@@ -36,3 +36,6 @@ bazel-accelerando
 bazel-bin
 bazel-out
 bazel-testlogs
+
+# Python setuptools-related stuff
+*.egg-info
