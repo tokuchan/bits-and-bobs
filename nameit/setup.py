@@ -8,6 +8,7 @@ setup(
         "click",
         "click-log",
     ],
+    packages = ["words",],
     entry_points = '''
         [console_scripts]
         nameit=nameit:cli

@@ -1,7 +1,7 @@
 import click
 import click_log
 import logging
-import words
+import words.words
 import pathlib
 
 app_name = "nameit"
@@ -53,7 +53,7 @@ def init(adjectives, adverbs, nouns, verbs, db_path):
     db_dir.mkdir(parents=True, exist_ok=True)
 
     log.info("Initialize DB.")
-    wdb = words.words(db_path)
+    wdb = words.words.words(db_path)
 
     def check_path(path):
         if not pathlib.Path(path).exists():
@@ -96,7 +96,7 @@ def name(number_of_names_wanted, db_path):
     log.debug('(paths (db "{}")) (counts (number-of-names-wanted {}))'.format
               (db_path, number_of_names_wanted))
 
-    db = words.words(db_path)
+    db = words.words.words(db_path)
 
     for i in range(number_of_names_wanted):
         click.echo(db.name())
