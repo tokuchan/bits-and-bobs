@@ -3,6 +3,7 @@
 import sqlite3
 import logging
 import secrets
+import re
 
 def get_log(name):
     """Get a logger under the nameit aegis"""
@@ -76,7 +77,16 @@ class words:
     def verb(self):
         """Return a single randomly-selected verb."""
 
-        return get_word("verbs", self.db.cursor())
+        def ss(word, suffix):
+            return re.sub("{}$".format(suffix), "", word)
+
+        def clean_suffixes(word, suffixes):
+            for suffix in suffixes:
+                word = ss(word, suffix)
+            return word
+
+        word = clean_suffixes(get_word("verbs", self.db.cursor()), ["ings", "ing", "es", "ed", "e", "s"])
+        return word
         pass
 
     def name(self, form="{adverb} {verb}ing {adjective} {noun}"):
