@@ -89,8 +89,15 @@ def name(number_of_names_wanted, db_path):
     remembering them as well.
     """
 
+    log = logging.getLogger(__name__)
+
+    secho("Generating names", fg="yellow", bold=True)
+
+    log.debug('(paths (db "{}")) (counts (number-of-names-wanted {}))'.format
+              (db_path, number_of_names_wanted))
+
     db = words.words(db_path)
 
-    log.debug(db.adjective())
-    click.echo(db.name())
+    for i in range(number_of_names_wanted):
+        click.echo(db.name())
     pass
