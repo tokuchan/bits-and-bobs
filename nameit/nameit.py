@@ -84,7 +84,8 @@ def init(adjectives, adverbs, nouns, verbs, db_path):
     , "-d"
     , default="{}/words.db".format(click.get_app_dir(app_name))
     , help="Set the path to the words database to use.")
-def name(number_of_names_wanted, db_path):
+@click.option("--form", "-f", default="{adverb} {verb}ing {adjective} {noun}", help="Set the format of the generated name. The format will be called with four named parameters: {adverb}, {adjective}, {noun}, and {verb}")
+def name(number_of_names_wanted, db_path, form):
     """Generate a name from randomly chosen parts-of-speech.
 
     This tool generates a name by randomly selecting an adjective, adverb, verb,
@@ -106,5 +107,5 @@ def name(number_of_names_wanted, db_path):
     db = words.words.words(db_path)
 
     for i in range(number_of_names_wanted):
-        click.echo(db.name())
+        click.echo(db.name(form=form))
     pass
