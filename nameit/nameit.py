@@ -5,6 +5,7 @@ import words.words
 import pathlib
 
 app_name = "nameit"
+context_settings = { 'auto_envvar_prefix' : 'NAMEIT' }
 log = logging.getLogger(__name__)
 click_log.basic_config(log)
 def secho(*args, **kwargs):
@@ -12,10 +13,17 @@ def secho(*args, **kwargs):
     if log.level <= logging.INFO:
         return click.secho(*args, **kwargs)
 
-@click.group()
+@click.group(context_settings=context_settings)
 @click.version_option()
 @click_log.simple_verbosity_option(log)
 def cli():
+    '''
+    A system to generate interesting names.
+
+    Note, each command's options may be set as an environment variable. To do
+    so, the name must start with NAMEIT, followed by the command, then the
+    option. E.g.: to set the db-path option in init, set NAMEIT_INIT_DB_PATH.
+    '''
     pass
 
 @cli.command()
@@ -93,8 +101,7 @@ def name(number_of_names_wanted, db_path):
 
     secho("Generating names", fg="yellow", bold=True)
 
-    log.debug('(paths (db "{}")) (counts (number-of-names-wanted {}))'.format
-              (db_path, number_of_names_wanted))
+    log.debug('(options (number-of-names-wanted {}) (db_path "{}))'.format(number_of_names_wanted, db_path))
 
     db = words.words.words(db_path)
 
